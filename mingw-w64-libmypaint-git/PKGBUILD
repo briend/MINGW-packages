@@ -28,7 +28,7 @@ depends=(
     "${MINGW_PACKAGE_PREFIX}-glib2"
 )
 options=('!strip' 'debug')
-source=("${_realname}::git+https://github.com/briend/libmypaint.git#branch=smudge_tweaks")
+source=("${_realname}::git+https://github.com/briend/libmypaint.git#branch=master")
 sha256sums=('SKIP')
 
 pkgver() {
