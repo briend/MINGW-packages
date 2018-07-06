@@ -13,8 +13,10 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-python2-setuptools"
              "${MINGW_PACKAGE_PREFIX}-python3-setuptools"
              "${MINGW_PACKAGE_PREFIX}-python2-numpy"
              "${MINGW_PACKAGE_PREFIX}-python3-numpy"
-             "${MINGW_PACKAGE_PREFIX}-python-scipy"
-             "${MINGW_PACKAGE_PREFIX}-python-six")
+             "${MINGW_PACKAGE_PREFIX}-python2-scipy"
+             "${MINGW_PACKAGE_PREFIX}-python3-scipy"
+             "${MINGW_PACKAGE_PREFIX}-python2-six"
+             "${MINGW_PACKAGE_PREFIX}-python3-six")
 options=('staticlibs')
 source=("${_realname}-${pkgver}.tar.gz"::"https://github.com/colour-science/colour/archive/v${pkgver}.tar.gz")
 sha256sums=('df048ca5097a44833039a0392b9f7af649a220204c2e8252fd8639dfce4add3e')
@@ -29,7 +31,7 @@ build() {
   cd "${srcdir}"
   for builddir in python{2,3}-build; do
     pushd ${builddir}
-    ${MINGW_PREFIX}/bin/${builddir%-build} pip install .
+    ${MINGW_PREFIX}/bin/${builddir%-build} setup.py build
     popd
   done
 }
@@ -41,7 +43,7 @@ package_python2-colour-science() {
   MSYS2_ARG_CONV_EXCL="--prefix=;--install-scripts=;--install-platlib=" \
     ${MINGW_PREFIX}/bin/python2 setup.py install --prefix=${MINGW_PREFIX} --root="${pkgdir}" -O1
 
-  install -Dm644 LICENSE.txt "${pkgdir}${MINGW_PREFIX}/share/licenses/python2-${_realname}/COPYING"
+  install -Dm644 LICENSE "${pkgdir}${MINGW_PREFIX}/share/licenses/python2-${_realname}/COPYING"
 }
 
 package_python3-colour-science() {
@@ -51,7 +53,7 @@ package_python3-colour-science() {
   MSYS2_ARG_CONV_EXCL="--prefix=;--install-scripts=;--install-platlib=" \
     ${MINGW_PREFIX}/bin/python3 setup.py install --prefix=${MINGW_PREFIX} --root="${pkgdir}" -O1
 
-  install -Dm644 LICENSE.txt "${pkgdir}${MINGW_PREFIX}/share/licenses/python3-${_realname}/COPYING"
+  install -Dm644 LICENSE "${pkgdir}${MINGW_PREFIX}/share/licenses/python3-${_realname}/COPYING"
 }
 
 package_mingw-w64-i686-python2-colour-science() {
