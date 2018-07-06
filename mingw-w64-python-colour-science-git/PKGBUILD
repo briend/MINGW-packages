@@ -3,11 +3,8 @@
 _realname=colour-science
 pkgbase=mingw-w64-python-${_realname}-git
 pkgname=("${MINGW_PACKAGE_PREFIX}-python2-${_realname}-git" "${MINGW_PACKAGE_PREFIX}-python3-${_realname}-git")
-provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-conflicts=(
-    "${MINGW_PACKAGE_PREFIX}-${_realname}"
-)
-pkgver=0.3.11
+#pkgname="${MINGW_PACKAGE_PREFIX}-python2-${_realname}-git"
+pkgver=0.3.11.217.g95a375d4
 pkgrel=1
 pkgdesc="Python library for a multitude of colour science applications (git) (mingw-w64)"
 arch=('any')
@@ -25,6 +22,11 @@ makedepends+=("git")
 options=('staticlibs')
 source=("${_realname}::git+https://github.com/colour-science/colour.git")
 sha256sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}"/${_realname}
+  git describe --tags | sed 's,-\(alpha\|beta\),\1,' | sed 's,-,.,g' | sed 's,^v,,'
+}
 
 prepare() {
   cd ${srcdir}
