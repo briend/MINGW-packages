@@ -2,7 +2,7 @@
 
 _realname=mypaint-brushes
 pkgbase=mingw-w64-${_realname}2
-pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}2"
 pkgver=2.0.0
 pkgrel=1
 pkgdesc="Brushes for MyPaint 2.x (mingw-w64)"
