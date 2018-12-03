@@ -1,0 +1,67 @@
+# Contributor: Brien Dieterle <briend@gmail.com>
+
+_realname=pkgconfig
+pkgbase=mingw-w64-python-${_realname}
+pkgname=("${MINGW_PACKAGE_PREFIX}-python2-${_realname}" "${MINGW_PACKAGE_PREFIX}-python3-${_realname}")
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="Python library for doing colorspace conversions (mingw-w64)"
+arch=('any')
+license=('MIT')
+url="https://pypi.org/project/pkgconfig/"
+makedepends=("${MINGW_PACKAGE_PREFIX}-python2-setuptools"
+             "${MINGW_PACKAGE_PREFIX}-python3-setuptools")
+options=('staticlibs')
+source=("${_realname}-${pkgver}.tar.gz"::"https://github.com/matze/pkgconfig/archive/v${pkgver}.tar.gz")
+sha256sums=('38c5de8392f4acfe7f36b25d113c496d68f534e983afdbd0ba7240c8c475b161')
+
+prepare() {
+  cd ${srcdir}
+  cp -r ${_realname}-${pkgver} python2-build
+  cp -r ${_realname}-${pkgver} python3-build
+}
+
+build() {
+  cd "${srcdir}"
+  for builddir in python{2,3}-build; do
+    pushd ${builddir}
+    ${MINGW_PREFIX}/bin/${builddir%-build} setup.py build
+    popd
+  done
+}
+
+package_python2-pkgconfig() {
+  depends=("${MINGW_PACKAGE_PREFIX}-python2")
+
+  cd "${srcdir}/python2-build"
+  MSYS2_ARG_CONV_EXCL="--prefix=;--install-scripts=;--install-platlib=" \
+    ${MINGW_PREFIX}/bin/python2 setup.py install --prefix=${MINGW_PREFIX} --root="${pkgdir}" -O1
+
+  install -Dm644 LICENSE "${pkgdir}${MINGW_PREFIX}/share/licenses/python2-${_realname}/COPYING"
+}
+
+package_python3-pkgconfig() {
+  depends=("${MINGW_PACKAGE_PREFIX}-python3")
+
+  cd "${srcdir}/python3-build"
+  MSYS2_ARG_CONV_EXCL="--prefix=;--install-scripts=;--install-platlib=" \
+    ${MINGW_PREFIX}/bin/python3 setup.py install --prefix=${MINGW_PREFIX} --root="${pkgdir}" -O1
+
+  install -Dm644 LICENSE "${pkgdir}${MINGW_PREFIX}/share/licenses/python3-${_realname}/COPYING"
+}
+
+package_mingw-w64-i686-python2-pkgconfig() {
+  package_python2-pkgconfig
+}
+
+package_mingw-w64-i686-python3-pkgconfig() {
+  package_python3-pkgconfig
+}
+
+package_mingw-w64-x86_64-python2-pkgconfig() {
+  package_python2-pkgconfig
+}
+
+package_mingw-w64-x86_64-python3-pkgconfig() {
+  package_python3-pkgconfig
+}
