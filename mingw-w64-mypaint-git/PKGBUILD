@@ -40,7 +40,7 @@ options=('!strip' 'debug' 'staticlibs')
 license=("GPL2")
 url="http://mypaint.org"
 install=mypaint-${CARCH}.install
-source=("${_realname}::git+https://github.com/mypaint/mypaint.git")
+source=("${_realname}::git+https://github.com/briend/mypaint.git#branch=brushes-data")
 sha256sums=('SKIP')
 
 pkgver() {
