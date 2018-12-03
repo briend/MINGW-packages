@@ -33,6 +33,7 @@ makedepends=(
     "${MINGW_PACKAGE_PREFIX}-pygobject-devel"
     "${MINGW_PACKAGE_PREFIX}-python2"
     "${MINGW_PACKAGE_PREFIX}-python2-setuptools"
+    "${MINGW_PACKAGE_PREFIX}-mypaint-brushes2"
     "swig"
 )
 options=('!strip' 'debug' 'staticlibs')
