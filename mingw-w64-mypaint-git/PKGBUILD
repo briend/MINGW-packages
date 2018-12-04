@@ -26,6 +26,7 @@ depends=(
     "${MINGW_PACKAGE_PREFIX}-gcc-libs"
     "${MINGW_PACKAGE_PREFIX}-gsettings-desktop-schemas"
     "${MINGW_PACKAGE_PREFIX}-hicolor-icon-theme"
+    "${MINGW_PACKAGE_PREFIX}-mypaint-brushes2"
 )
 makedepends=(
     "${MINGW_PACKAGE_PREFIX}-swig"
